@@ -1,0 +1,499 @@
+openapi: 3.0.3
+info:
+  title: Pharmaceutical Research Hub API
+  description: API for searching, classifying, and analyzing pharmaceutical research papers
+  version: 1.0.0
+  contact:
+    name: API Support
+    email: support@pharmaresearch.com
+
+servers:
+  - url: https://api.pharmaresearch.com/v1
+    description: Production server
+  - url: https://staging-api.pharmaresearch.com/v1
+    description: Staging server
+
+paths:
+  /search:
+    post:
+      summary: Search research papers
+      description: Search for research papers based on disease, compound, or keyword
+      tags:
+        - Search
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                query:
+                  type: string
+                  description: Search query (disease name, compound, keyword)
+                  example: "diabetes type 2"
+                filters:
+                  type: object
+                  properties:
+                    publication_year:
+                      type: array
+                      items:
+                        type: integer
+                      example: [2020, 2021, 2022, 2023]
+                    paper_type:
+                      type: array
+                      items:
+                        type: string
+                      example: ["clinical_trial", "review", "research"]
+                    clinical_trial_phase:
+                      type: array
+                      items:
+                        type: string
+                      example: ["phase_1", "phase_2", "phase_3"]
+                limit:
+                  type: integer
+                  minimum: 1
+                  maximum: 100
+                  default: 10
+                offset:
+                  type: integer
+                  minimum: 0
+                  default: 0
+      responses:
+        '200':
+          description: Successful search results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Paper'
+                  total_count:
+                    type: integer
+                  search_metadata:
+                    $ref: '#/components/schemas/SearchMetadata'
+
+  /papers/{paper_id}:
+    get:
+      summary: Get paper details
+      description: Retrieve detailed information about a specific research paper
+      tags:
+        - Papers
+      parameters:
+        - name: paper_id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "pmid_12345678"
+      responses:
+        '200':
+          description: Paper details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaperDetail'
+
+  /classifications:
+    get:
+      summary: Get paper classifications
+      description: Retrieve classification results for papers
+      tags:
+        - Classification
+      parameters:
+        - name: paper_ids
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          example: ["pmid_12345678", "pmid_87654321"]
+        - name: category
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [recommended, review_required, not_relevant]
+      responses:
+        '200':
+          description: Classification results
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Classification'
+
+  /recommendations:
+    post:
+      summary: Get paper recommendations
+      description: Get personalized paper recommendations based on user preferences
+      tags:
+        - Recommendations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: string
+                  example: "user_123"
+                disease_focus:
+                  type: array
+                  items:
+                    type: string
+                  example: ["diabetes", "cardiovascular"]
+                compound_interests:
+                  type: array
+                  items:
+                    type: string
+                  example: ["metformin", "insulin"]
+                limit:
+                  type: integer
+                  default: 10
+      responses:
+        '200':
+          description: Recommended papers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Recommendation'
+
+  /analytics/dashboard:
+    get:
+      summary: Get analytics dashboard data
+      description: Retrieve analytics data for dashboard visualization
+      tags:
+        - Analytics
+      parameters:
+        - name: date_range
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [7d, 30d, 90d, 1y]
+            default: 30d
+        - name: disease_focus
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Dashboard analytics data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalyticsDashboard'
+
+  /clinical-trials:
+    get:
+      summary: Get clinical trial information
+      description: Retrieve clinical trial data associated with papers
+      tags:
+        - Clinical Trials
+      parameters:
+        - name: paper_id
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: trial_phase
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [phase_1, phase_2, phase_3, phase_4]
+        - name: status
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [recruiting, completed, terminated, suspended]
+      responses:
+        '200':
+          description: Clinical trial information
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClinicalTrial'
+
+components:
+  schemas:
+    Paper:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "pmid_12345678"
+        title:
+          type: string
+          example: "Novel therapeutic approaches for type 2 diabetes"
+        abstract:
+          type: string
+          example: "This study investigates..."
+        authors:
+          type: array
+          items:
+            type: string
+          example: ["Smith J", "Johnson A", "Williams B"]
+        journal:
+          type: string
+          example: "Nature Medicine"
+        publication_date:
+          type: string
+          format: date
+          example: "2023-03-15"
+        doi:
+          type: string
+          example: "10.1038/nm.1234"
+        classification:
+          $ref: '#/components/schemas/Classification'
+        clinical_trials:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClinicalTrial'
+
+    PaperDetail:
+      allOf:
+        - $ref: '#/components/schemas/Paper'
+        - type: object
+          properties:
+            full_text_url:
+              type: string
+              example: "https://pubmed.ncbi.nlm.nih.gov/12345678"
+            keywords:
+              type: array
+              items:
+                type: string
+              example: ["diabetes", "metformin", "glucose"]
+            mesh_terms:
+              type: array
+              items:
+                type: string
+              example: ["Diabetes Mellitus, Type 2", "Hypoglycemic Agents"]
+            citations_count:
+              type: integer
+              example: 42
+            impact_factor:
+              type: number
+              format: float
+              example: 8.5
+            extracted_entities:
+              $ref: '#/components/schemas/ExtractedEntities'
+
+    Classification:
+      type: object
+      properties:
+        paper_id:
+          type: string
+          example: "pmid_12345678"
+        category:
+          type: string
+          enum: [recommended, review_required, not_relevant]
+          example: "recommended"
+        confidence_score:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          example: 0.92
+        classification_reasons:
+          type: array
+          items:
+            type: string
+          example: ["Clinical trial present", "High impact factor", "Recent publication"]
+        updated_at:
+          type: string
+          format: date-time
+          example: "2023-12-01T10:30:00Z"
+
+    Recommendation:
+      type: object
+      properties:
+        paper:
+          $ref: '#/components/schemas/Paper'
+        relevance_score:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          example: 0.89
+        recommendation_reasons:
+          type: array
+          items:
+            type: string
+          example: ["Matches disease focus", "Recent clinical trial results"]
+
+    ClinicalTrial:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "NCT12345678"
+        title:
+          type: string
+          example: "Phase 3 Study of Metformin in Type 2 Diabetes"
+        phase:
+          type: string
+          enum: [phase_1, phase_2, phase_3, phase_4]
+          example: "phase_3"
+        status:
+          type: string
+          enum: [recruiting, completed, terminated, suspended]
+          example: "completed"
+        start_date:
+          type: string
+          format: date
+          example: "2022-01-15"
+        completion_date:
+          type: string
+          format: date
+          example: "2023-06-30"
+        participant_count:
+          type: integer
+          example: 500
+        primary_outcome:
+          type: string
+          example: "Reduction in HbA1c levels"
+        sponsor:
+          type: string
+          example: "Example Pharmaceuticals Inc."
+
+    AnalyticsDashboard:
+      type: object
+      properties:
+        paper_trends:
+          type: object
+          properties:
+            total_papers:
+              type: integer
+              example: 15420
+            new_papers_this_period:
+              type: integer
+              example: 342
+            growth_rate:
+              type: number
+              format: float
+              example: 12.5
+        classification_breakdown:
+          type: object
+          properties:
+            recommended:
+              type: integer
+              example: 1250
+            review_required:
+              type: integer
+              example: 890
+            not_relevant:
+              type: integer
+              example: 2100
+        clinical_trial_stats:
+          type: object
+          properties:
+            total_trials:
+              type: integer
+              example: 456
+            active_trials:
+              type: integer
+              example: 123
+            completed_trials:
+              type: integer
+              example: 298
+        top_diseases:
+          type: array
+          items:
+            type: object
+            properties:
+              disease:
+                type: string
+                example: "diabetes"
+              paper_count:
+                type: integer
+                example: 2341
+        research_trends:
+          type: array
+          items:
+            type: object
+            properties:
+              date:
+                type: string
+                format: date
+                example: "2023-11-01"
+              paper_count:
+                type: integer
+                example: 45
+
+    ExtractedEntities:
+      type: object
+      properties:
+        diseases:
+          type: array
+          items:
+            type: string
+          example: ["Type 2 Diabetes", "Cardiovascular Disease"]
+        compounds:
+          type: array
+          items:
+            type: string
+          example: ["Metformin", "Insulin"]
+        genes:
+          type: array
+          items:
+            type: string
+          example: ["PPARG", "TCF7L2"]
+        proteins:
+          type: array
+          items:
+            type: string
+          example: ["Insulin Receptor", "GLUT4"]
+
+    SearchMetadata:
+      type: object
+      properties:
+        query_time_ms:
+          type: integer
+          example: 245
+        total_papers_searched:
+          type: integer
+          example: 1500000
+        filters_applied:
+          type: object
+          example: {"publication_year": [2020, 2021, 2022, 2023]}
+        ml_models_used:
+          type: array
+          items:
+            type: string
+          example: ["BioBERT", "Classification-v2", "Ranking-v1"]
+
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - BearerAuth: []
+
+tags:
+  - name: Search
+    description: Paper search functionality
+  - name: Papers
+    description: Individual paper operations
+  - name: Classification
+    description: ML classification results
+  - name: Recommendations
+    description: AI-powered recommendations
+  - name: Analytics
+    description: Analytics and insights
+  - name: Clinical Trials
+    description: Clinical trial information
