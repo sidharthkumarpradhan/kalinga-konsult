@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting...</title>
+    <meta http-equiv="refresh" content="0; url=./?/%2F%3F%23" />
+    <script type="text/javascript">
+      // Single Page Apps for GitHub Pages - https://github.com/rafgraph/spa-github-pages
+      // This script takes the current url and converts it to a redirect URL
+      (function () {
+        var segmentCount = 1; // repo-name depth for project pages
+        var l = window.location;
+        var repo = l.pathname.split('/').slice(0, 1 + segmentCount).join('/');
+        l.replace(
+          l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+          repo + '/?/' +
+          l.pathname.slice(1).split('/').slice(segmentCount).join('/') +
+          (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+          l.hash
+        );
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>

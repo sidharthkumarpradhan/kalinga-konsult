@@ -33,7 +33,7 @@ const Layout = ({ children }: LayoutProps) => {
               <img 
                 src="/lovable-uploads/646fb7d2-a979-454b-80e8-a4b079e55f34.png" 
                 alt="Kalinga Consult" 
-                className="h-10 w-auto"
+                className="h-12 md:h-14 w-auto"
               />
             </Link>
 
@@ -99,10 +99,10 @@ const Layout = ({ children }: LayoutProps) => {
           <div className="grid md:grid-cols-4 gap-8">
             {/* Company Info */}
             <div className="md:col-span-2">
-              <img 
+            <img 
                 src="/lovable-uploads/646fb7d2-a979-454b-80e8-a4b079e55f34.png" 
                 alt="Kalinga Consult" 
-                className="h-12 w-auto mb-4"
+                className="h-14 md:h-16 w-auto mb-4"
               />
               <p className="text-muted-foreground mb-4 max-w-md">
                 Professional construction and engineering consultancy services with proven expertise 

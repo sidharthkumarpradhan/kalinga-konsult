@@ -4,7 +4,126 @@ import { Button } from "@/components/ui/button";
 import { MapPin, Calendar, Users } from "lucide-react";
 
 const Projects = () => {
-  const projects = [
+    {
+      id: 101,
+      title: "Geotechnical SPT at Tulasipur, Badamba",
+      category: "Infrastructure",
+      location: "Cuttack District, Odisha",
+      year: "2025",
+      description: "Standard Penetration Test for bridge approach foundations along rural corridor.",
+      image: "/lovable-uploads/d3b0e640-b8ea-40c4-a9cf-2feb7c4a9970.png",
+      status: "Ongoing",
+      client: "Public Works",
+      area: "Site Investigation"
+    },
+    {
+      id: 102,
+      title: "Geotechnical Drilling & Sampling",
+      category: "Infrastructure",
+      location: "Odisha",
+      year: "2025",
+      description: "Percussion drilling and UDS sampling for subsoil characterization.",
+      image: "/lovable-uploads/24d00516-7d5f-4eb7-b050-529f259dfeed.png",
+      status: "Ongoing",
+      client: "Highways Division",
+      area: "Site Investigation"
+    },
+    {
+      id: 103,
+      title: "Highway Axle Load Survey",
+      category: "Infrastructure",
+      location: "Odisha State Highways",
+      year: "2024",
+      description: "Weigh-in-motion and axle-load data collection for pavement design and maintenance planning.",
+      image: "/lovable-uploads/5847b8c6-a6d7-4459-8629-3b2527791c57.png",
+      status: "Completed",
+      client: "Transport Dept.",
+      area: "Traffic Survey"
+    },
+    {
+      id: 104,
+      title: "Bridge Design - CAD Detailing",
+      category: "Infrastructure",
+      location: "Odisha",
+      year: "2024",
+      description: "Detailed drawings for piers, deck, and approach structures using industry-standard CAD.",
+      image: "/lovable-uploads/17f51f35-c00e-4346-bd29-b776802a3098.png",
+      status: "Completed",
+      client: "Various",
+      area: "Design Engineering"
+    },
+    {
+      id: 105,
+      title: "Architectural Drafting & Visualization",
+      category: "Commercial",
+      location: "Bhubaneswar, Odisha",
+      year: "2024",
+      description: "Architectural layouts and elevations prepared in AutoCAD with 3D references.",
+      image: "/lovable-uploads/7802dc0c-58ac-434d-8be8-4890568f2453.png",
+      status: "Completed",
+      client: "Private Clients",
+      area: "Design"
+    },
+    {
+      id: 106,
+      title: "Total Station Survey",
+      category: "Infrastructure",
+      location: "Odisha",
+      year: "2023",
+      description: "Topographic survey for corridor mapping and ROW delineation.",
+      image: "/lovable-uploads/a75de6fb-4226-4c4e-a6bb-66f15ff583a2.png",
+      status: "Completed",
+      client: "PWD",
+      area: "Survey"
+    },
+    {
+      id: 107,
+      title: "Bridge Level & Alignment Survey",
+      category: "Infrastructure",
+      location: "Odisha",
+      year: "2023",
+      description: "Cross-sectioning and level measurements for bridge design checks.",
+      image: "/lovable-uploads/58292d3a-d3db-4e79-a657-ab69388992af.png",
+      status: "Completed",
+      client: "PWD",
+      area: "Survey"
+    },
+    {
+      id: 108,
+      title: "Night Work Zone Management",
+      category: "Infrastructure",
+      location: "Odisha",
+      year: "2023",
+      description: "Safety and traffic management for nighttime construction and survey operations.",
+      image: "/lovable-uploads/71294757-1cae-4e16-86fb-5e470153db99.png",
+      status: "Completed",
+      client: "Contractor",
+      area: "Safety"
+    },
+    {
+      id: 109,
+      title: "Construction Supervision",
+      category: "Infrastructure",
+      location: "Odisha",
+      year: "2024",
+      description: "Quality monitoring and supervision for RCC works and site execution.",
+      image: "/lovable-uploads/6578daaa-afa4-4e6b-aeb0-6f4718f6caa9.png",
+      status: "Ongoing",
+      client: "Client Confidential",
+      area: "Supervision"
+    },
+    {
+      id: 110,
+      title: "Design Studio Operations",
+      category: "Commercial",
+      location: "Bhubaneswar, Odisha",
+      year: "2025",
+      description: "In-house CAD production and coordination with field teams.",
+      image: "/lovable-uploads/c3129a37-a02e-4037-8364-7343f4335f9d.png",
+      status: "Ongoing",
+      client: "In-house",
+      area: "Operations"
+    },
     {
       id: 1,
       title: "Residential Complex - Green Valley",
@@ -77,7 +196,6 @@ const Projects = () => {
       client: "Private Client",
       area: "15,000 sq ft"
     }
-  ];
 
   const getStatusColor = (status: string) => {
     switch (status) {
