@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Phone } from "lucide-react";
+import { Menu, Phone, Facebook } from "lucide-react";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -109,9 +109,19 @@ const Layout = ({ children }: LayoutProps) => {
                 and commitment to excellence in every project we undertake.
               </p>
               <div className="flex space-x-4">
-                <Button variant="ghost" size="sm">
+                <Button variant="ghost" size="sm" aria-label="Call Kalinga Consult">
                   <Phone className="h-4 w-4" />
                 </Button>
+                <a
+                  href="https://www.facebook.com/share/171puBJKsg/?mibextid=wwXIfr"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Kalinga Consult on Facebook"
+                >
+                  <Button variant="ghost" size="sm">
+                    <Facebook className="h-4 w-4" />
+                  </Button>
+                </a>
               </div>
             </div>
 
