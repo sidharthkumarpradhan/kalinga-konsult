@@ -102,8 +102,13 @@ const Projects = () => {
           <div className="text-center max-w-3xl mx-auto">
             <h1 className="text-5xl font-bold mb-6">Our Projects</h1>
             <p className="text-xl text-muted-foreground">
-              Discover our portfolio of successful construction and engineering projects across Odisha
+              With 5+ years of excellence and statewide reach across all districts of Odisha, we deliver DPR, Aerial & Drone (LiDAR) surveys, Geospatial & Hydrological studies, PMC, Architectural & Building design, Highway design, and Geotechnical investigations.
             </p>
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
+              {["DPR for Roads & Bridges","Aerial & Drone (LiDAR) Survey","Geospatial & Hydrological Survey","Project Management Consultancy","Architectural & Building Design","Highway Design","Geotechnical Investigation"].map((item) => (
+                <Badge key={item} variant="secondary">{item}</Badge>
+              ))}
+            </div>
           </div>
         </div>
       </section>

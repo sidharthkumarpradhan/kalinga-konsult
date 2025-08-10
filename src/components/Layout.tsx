@@ -146,15 +146,15 @@ const Layout = ({ children }: LayoutProps) => {
             <div>
               <h3 className="font-semibold mb-4">Contact Info</h3>
               <div className="space-y-2 text-muted-foreground">
-                <p>+91-XXXXXXXXXX</p>
+                <p>+918093584917</p>
                 <p>info@kalingaconsult.com</p>
-                <p>Bhubaneswar, Odisha</p>
+                <p>Raghunathpur, Bhubaneswar, India, Odisha</p>
               </div>
             </div>
           </div>
 
           <div className="border-t mt-8 pt-8 text-center text-muted-foreground">
-            <p>&copy; 2024 Kalinga Consult & Engineers. All rights reserved.</p>
+            <p>&copy; 2025 • Made with ♥ by Kalinga Consult Group.</p>
           </div>
         </div>
       </footer>

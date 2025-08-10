@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { MapPin, Phone, Mail, CheckCircle } from "lucide-react";
+import PartnersMarquee from "@/components/PartnersMarquee";
 
 const Home = () => {
   const services = [
@@ -29,8 +30,8 @@ const Home = () => {
 
   const features = [
     "Licensed Professional Engineers",
-    "20+ Years of Experience",
-    "Quality Guaranteed Projects",
+    "5+ Years of Excellence",
+    "Statewide reach across all districts of Odisha",
     "Timely Project Delivery",
     "Cost-Effective Solutions",
     "Modern Construction Techniques"
@@ -46,6 +47,9 @@ const Home = () => {
             <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
               We are Construction & Engineering Experts
             </h1>
+            <div className="flex justify-center mb-4">
+              <Badge variant="secondary">5+ Years • Serving all districts of Odisha</Badge>
+            </div>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
               Professional construction and engineering consultancy services with proven expertise and commitment to excellence
             </p>
@@ -62,6 +66,9 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Partners Section */}
+      <PartnersMarquee />
+      
       {/* Services Section */}
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
@@ -129,7 +136,7 @@ const Home = () => {
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-8">
             <div className="flex items-center space-x-2">
               <Phone className="h-5 w-5" />
-              <span>+91-XXXXXXXXXX</span>
+              <span>+918093584917</span>
             </div>
             <div className="flex items-center space-x-2">
               <Mail className="h-5 w-5" />
@@ -137,7 +144,7 @@ const Home = () => {
             </div>
             <div className="flex items-center space-x-2">
               <MapPin className="h-5 w-5" />
-              <span>Bhubaneswar, Odisha</span>
+              <span>Raghunathpur, Bhubaneswar, India, Odisha</span>
             </div>
           </div>
           
